@@ -49,7 +49,7 @@ function plot_paths(args...; names=[], types=[], draw_plots=true)
     end
     p=vstack([
         plot(
-            df_stacked[df_stacked[:,:variable].==b, :],
+            df_stacked[df_stacked[:,:variable].=="$b", :],
             x=:t,
             y=:value, color=:type, Geom.line,
             ymin=:ymin, ymax=:ymax, Geom.ribbon,
