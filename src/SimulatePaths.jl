@@ -19,6 +19,7 @@ module SimulatePaths
     export match_mean
     export match_std
     export ARp
+    export VAR1
     export ARMApq
     export paths_to_df
     export plot_paths
