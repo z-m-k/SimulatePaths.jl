@@ -92,5 +92,35 @@ function ARMApq(T, ϕs, θs, σ; burn_in=1000, unconditional_mean=false, return_
     end
     y[end-T+1:end]
 end
+
+function VAR1(T, ω, Φ, Σ; burn_in=1000, unconditional_mean=false, return_innovations=false)
+    ε_dist=MvNormal(Σ)
+    ε=rand(ε_dist, T+burn_in)
+
+    ω_c=ω
+    ω_uc=ω
+    if unconditional_mean==true
+        ω_c=(I-Φ)*ω
+    else
+        ω_uc=inv(I-Φ)*ω
+    end
+
+    fts=similar(ε)
+    ft=ω_uc
+    for i=1:T+burn_in
+        ft=ω_c + Φ*ft + ε[:,i]
+        fts[:,i]=ft
+    end
+
+    fts=fts[:,end-T+1:end]
+    ε=ε[:,end-T+1:end]
+
+    if return_innovations==true
+        return fts, ε
+    end
+    fts
+end
+
+
 # Random.seed!(20200412);
 # ARMApq(T,[0.;0.99],[0.2;0.3],0.5)

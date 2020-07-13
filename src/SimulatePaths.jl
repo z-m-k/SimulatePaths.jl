@@ -10,6 +10,7 @@ module SimulatePaths
     using LinearAlgebra
     using Statistics: mean, std
     using Gadfly, DataFrames
+    using Distributions
 
     export structural_breaks
     export sinusoid
